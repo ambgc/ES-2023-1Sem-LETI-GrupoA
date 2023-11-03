@@ -30,10 +30,6 @@ public class CSVFile {
 		return filePath;
 	}
 
-	public CSVParser getCsvParser() {
-		return csvParser;
-	}
-
 	private void loadFile() {
 		csvFile = new ArrayList<String>();
 		for (CSVRecord csvRecord : csvParser) {
