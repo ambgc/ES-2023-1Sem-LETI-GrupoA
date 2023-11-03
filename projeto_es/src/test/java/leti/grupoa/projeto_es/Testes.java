@@ -21,6 +21,7 @@ import java.io.IOException;
 
 class Testes {
 	static WebDriver driver;
+	private CSVParser csvParser;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -28,8 +29,6 @@ class Testes {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		Thread.sleep(10000000);
-		driver.quit();
 	}
 
 	@Test
@@ -39,14 +38,21 @@ class Testes {
 		String csvFilePath = ("C:/Users/afons/Desktop/HorarioDeExemplo.csv");
 		FileReader fileReader = new FileReader(csvFilePath);
 
-		CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT);
+		csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT);
 
 		for (CSVRecord csvRecord : csvParser) {
-			ArrayList<String> columns = new ArrayList<String>();
+			String columns = "";
 			for (int i = 0; i < 10; i++) {
-				if (i >= 0 && i < csvRecord.size())
-					columns.add(csvRecord.get(i));
+				if (i >= 0 && i < csvRecord.size()) {
+					if (columns.isEmpty()) {
+						columns = csvRecord.get(i);
+					} else {
+						columns = columns + "," + csvRecord.get(i);
+					}
+				}
+
 			}
+			columns = columns.replace(";", ", ");
 			System.out.println(columns);
 		}
 
