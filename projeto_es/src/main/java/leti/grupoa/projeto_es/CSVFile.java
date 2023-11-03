@@ -30,7 +30,11 @@ public class CSVFile {
 		return filePath;
 	}
 
-	private void loadFile() {
+	public CSVParser getCsvParser() {
+		return csvParser;
+	}
+
+	public ArrayList<String> loadFile() {
 		csvFile = new ArrayList<String>();
 		for (CSVRecord csvRecord : csvParser) {
 			String columns = "";
@@ -39,13 +43,14 @@ public class CSVFile {
 			csvFile.add(columns);
 
 			for (int i = 0; i < 10; i++) {
-				if (i > 0 && i < csvRecord.size() && !csvRecord.get(i).isEmpty()) {
+				if (i > 0 && i < csvRecord.size() && !csvRecord.get(i).isBlank()) {
 					columns = columns + "," + csvRecord.get(i);
 				}
 			}
 			columns = columns.replace(";", " | ");
 			csvFile.add("\n" + columns);
 		}
+		return csvFile;
 	}
 
 	public void readFile() {
