@@ -20,11 +20,10 @@ import java.io.FileReader;
 import java.io.IOException;
 
 class Testes {
-	static WebDriver driver;
-	private CSVParser csvParser;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+
 	}
 
 	@AfterAll
@@ -35,26 +34,9 @@ class Testes {
 
 	void test2() throws IOException {
 
-		String csvFilePath = ("C:/Users/afons/Desktop/HorarioDeExemplo.csv");
-		FileReader fileReader = new FileReader(csvFilePath);
-
-		csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT);
-
-		for (CSVRecord csvRecord : csvParser) {
-			String columns = "";
-			for (int i = 0; i < 10; i++) {
-				if (i >= 0 && i < csvRecord.size()) {
-					if (columns.isEmpty()) {
-						columns = csvRecord.get(i);
-					} else {
-						columns = columns + "," + csvRecord.get(i);
-					}
-				}
-
-			}
-			columns = columns.replace(";", ", ");
-			System.out.println(columns);
-		}
-
+		String path = ("C:/Users/afons/Desktop/HorarioDeExemplo.csv");
+		CSVFile f = new CSVFile("f", path);
+		f.readFile();
 	}
+
 }
