@@ -3,6 +3,7 @@ package leti.grupoa.projeto_es;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -20,6 +21,27 @@ public class CSVFile {
 		this.filePath = filePath;
 		FileReader fileReader = new FileReader(filePath);
 		csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT);
+	}
+
+	public static CSVFile createCSVFile() throws IOException {
+
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Introduza a localização do ficheiro CSV: ");
+		String fPath = scanner.nextLine();
+		System.out.println("Introduza o nome do ficheiro: ");
+		String fName = scanner.nextLine();
+		if (!fPath.isBlank() && !fName.isBlank()) {
+			System.out.println("Ficheiro " + fName + " localizado em " + fPath + " carregado com sucesso.");
+			CSVFile f = new CSVFile(fName, fPath);
+			scanner.close();
+			return f;
+		} else {
+			System.out.println("Diretório ou nome inválido.");
+			scanner.close();
+		}
+		return null;
+
 	}
 
 	public String getName() {

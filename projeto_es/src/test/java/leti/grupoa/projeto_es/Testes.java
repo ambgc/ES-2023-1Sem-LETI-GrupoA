@@ -1,13 +1,12 @@
 package leti.grupoa.projeto_es;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.junit.jupiter.api.*;
@@ -15,8 +14,6 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
 class Testes {
@@ -33,7 +30,7 @@ class Testes {
 //	@Test
 //
 //	void test1() throws IOException {
-//	
+//	-- (Afonso)
 //		String path = ("C:/Users/afons/Desktop/HorarioDeExemplo.csv");
 //		CSVFile f = new CSVFile("f", path);
 //		CSVParser csvParser = f.getCsvParser();
@@ -59,15 +56,45 @@ class Testes {
 //		System.out.println("\n" + csvFile.get(0));
 //	}
 //	
+//	@Test
+//
+//	void test2() throws IOException {
+//
+//		// teste da classe (Afonso)
+//		String path = ("C:/Users/afons/Desktop/HorarioDeExemplo.csv");
+//		CSVFile f = new CSVFile("F", path);
+//		System.out.println(f.loadFile());
+//
+//	}
+
+//	@Test
+//  -- teste: criação de ficheiro interativa (Alex)
+//	void test3() throws IOException {
+//		Scanner scanner = new Scanner(System.in);
+//
+//        System.out.println("Introduza a localização do ficheiro CSV: ");
+//        String fPath = scanner.nextLine();
+//        System.out.println("Introduza o nome do ficheiro: ");
+//        String fName = scanner.nextLine();
+//         if(!fPath.isBlank() && !fName.isBlank()) {
+//        System.out.println("Ficheiro " + fName + " localizado em " + fPath + " carregado com sucesso.");
+//        CSVFile f = new CSVFile(fName, fPath);
+//        f.readFile();
+//        }else {
+//        	System.out.println("Diretório ou nome inválido.");
+//        }
+//        scanner.close();
+//        
+//        
+//	}
 	@Test
-
-	void test2() throws IOException {
-
-		// teste da classe
-		String path = ("C:/Users/afons/Desktop/HorarioDeExemplo.csv");
-		CSVFile f = new CSVFile("F", path);
-		System.out.println(f.loadFile());
-
+	// -- teste: teste de função (Alex)
+	void test4() throws IOException {
+		
+		CSVFile f = CSVFile.createCSVFile();
+		f.readFile();
+		
 	}
+	
 
 }
