@@ -93,4 +93,8 @@ public class Schedule {
 		System.out.println("\n" + scheduleText.get(0));
 	}
 
+	public ArrayList<String> getScheduleText() {
+		return scheduleText;
+	}
+
 }
