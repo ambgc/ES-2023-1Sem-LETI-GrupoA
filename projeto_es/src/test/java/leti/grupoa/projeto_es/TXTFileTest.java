@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class TXTFileTest {
 	//Alterar local de ficheiro em cada máquina.
 
-	static String testPath = ("C:/Users/afons/Desktop/ES.txt");
+	static String testPath = ("C:/Users/afons/Desktop/horario exemplo.txt");
 	static TXTFile f;
 
 	@BeforeAll

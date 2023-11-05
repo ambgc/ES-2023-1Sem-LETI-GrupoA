@@ -38,15 +38,20 @@ public class TXTFile {
 		txtText = new ArrayList<String>();
 		Scanner s = new Scanner(new File(path));
 		while (s.hasNextLine()) {
-			String next = s.nextLine();
+			String next = s.nextLine().replace(";", " | ");
+			next = next.replace("	 ", ", ");
+			if(txtText.isEmpty()) {
 			txtText.add(next);
-
+			}else {
+				txtText.add("\n" + next);
+			}
 		}
 	}
 
 	public void print() throws FileNotFoundException {
 		load();
-		System.out.println(txtText);
+		System.out.println(txtText + "\n");
+		System.out.println(txtText.get(0));
 	}
 
 }
