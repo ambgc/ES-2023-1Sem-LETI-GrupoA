@@ -4,30 +4,49 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TXTFile {
 
-    public static void main(String[] args) {
-        String arquivoCSV = "/C:/Users/Vasco/Desktop/Escola/ES/HorarioDeExemplo.csv"; // Substitua pelo caminho do seu arquivo CSV
- 
-        try (BufferedReader reader = new BufferedReader(new FileReader(arquivoCSV));
-             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT)) {
+	private String name;
+	private String path;
+	private ArrayList<String> txtText;
 
-            for (CSVRecord csvRecord : csvParser) {
-                StringBuilder linhaFormatada = new StringBuilder();
-                for (String campo : csvRecord) {
-                    if (linhaFormatada.length() > 0) {
-                        linhaFormatada.append("| ");
-                    }
-                    linhaFormatada.append(campo.replace(";", "|"));
-                }
-                String horario = linhaFormatada.toString();
-                System.out.println(horario);
-            }
-        } catch (IOException e) {
-            System.err.println("Erro ao ler o arquivo CSV: " + e.getMessage());
-        }
-    }
+	public TXTFile(String name, String path) {
+		this.name = name;
+		this.path = path;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public ArrayList<String> getTxtText() {
+		return txtText;
+	}
+
+	public void load() throws FileNotFoundException {
+		txtText = new ArrayList<String>();
+		Scanner s = new Scanner(new File(path));
+		while (s.hasNextLine()) {
+			String next = s.nextLine();
+			txtText.add(next);
+
+		}
+	}
+
+	public void print() throws FileNotFoundException {
+		load();
+		System.out.println(txtText);
+	}
+
 }

@@ -4,44 +4,57 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
+
 public class ScheduleManagerTest {
 
-    private ScheduleManager manager;
+	// NÃO ESQUECER DE MUDAR CAMINHO PARA OS FICHEIROS A TESTAR DE ACORDO COM CADA
+	// MÁQUINA
 
-    @BeforeEach
-    public void setUp() {
-        manager = new ScheduleManager();
-    }
+	private ScheduleManager manager;
+	String testPath = "C:/Users/afons/Desktop/HorarioDeExemplo.csv";
+	Schedule s;
 
-    @Test											//NÃO ESQUECER DE MUDAR CAMINHOS PARA OS FICHEIROS A TESTAR  DE ACORDO COM CADA MÁQUINA
-    public void testAddScheduleFile() {
-        manager.addScheduleFile("/C:/Users/Vasco/Desktop/Escola/ES/HorarioDeExemplo.csv");
-        manager.addScheduleFile("/C:/Users/Vasco/Desktop/Escola/ES/HorarioExemplo2.csv");
+	@BeforeEach
+	public void setUp() throws IOException {
+		manager = new ScheduleManager();
+		s = new Schedule("f", testPath);
 
-        assertTrue(manager.getScheduleFiles().size() == 2);
-    }
+	}
 
-    @Test
-    public void testRemoveScheduleFile() {
-    	manager.addScheduleFile("/C:/Users/Vasco/Desktop/Escola/ES/HorarioDeExemplo.csv");
-        manager.addScheduleFile("/C:/Users/Vasco/Desktop/Escola/ES/HorarioExemplo2.csv");
+	@Test
+	public void testAddScheduleFile() {
+		manager.add(s);
+		manager.add(s);
 
-        manager.removeScheduleFile("/C:/Users/Vasco/Desktop/Escola/ES/HorarioDeExemplo.csv");
+		assertTrue(manager.getList().size() == 2);
+	}
 
-        assertTrue(manager.getScheduleFiles().size() == 1);
-        assertFalse(manager.getScheduleFiles().contains("/C:/Users/Vasco/Desktop/Escola/ES/HorarioDeExemplo.csv"));
-    }
+	@Test
+	public void testRemoveScheduleFile() {
+		manager.add(s);
+		manager.add(s);
 
-    @Test
-    public void testClearScheduleFiles() {
-        manager.addScheduleFile("/C:/Users/Vasco/Desktop/Escola/ES/HorarioDeExemplo.csv");
-        manager.addScheduleFile("/C:/Users/Vasco/Desktop/Escola/ES/HorarioExemplo2.csv");
+		manager.remove(s);
 
-        manager.clearScheduleFiles();
+		assertTrue(manager.getList().size() == 1);
+		assertFalse(manager.getList().contains(s));
+	}
 
-        assertTrue(manager.getScheduleFiles().isEmpty());
-    }
+	@Test
+	public void testClearScheduleFiles() {
+		manager.add(s);
+		manager.add(s);
 
-    // Add more test cases for other methods as needed
+		manager.clear();
+
+		assertTrue(manager.getList().isEmpty());
+	}
+	
+	@Test
+	public void testSchedulePrint() {
+		manager.add(s);
+		manager.printSchedules();
+	}
 
 }
