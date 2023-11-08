@@ -1,7 +1,7 @@
 package leti.grupoa.projeto_es;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.Assert.*;
 import java.io.IOException;
 
 import org.junit.jupiter.api.AfterAll;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class ScheduleRepTest {
 
 	String name = "HorarioDeExemplo.csv";
-	String path = "C:/Users/scena/Desktop/HorarioDeExemplo.csv";		
+	String path = "C:/Coding/HorarioDeExemplo.csv";		
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 
@@ -27,8 +27,7 @@ class ScheduleRepTest {
 	void test() throws IOException {
 
 		Schedule s = new Schedule(name, path);
-		ScheduleRepresent sr = new ScheduleRepresent(s);
-		sr.htmlGen();
+		ScheduleRepresent.generateHTML();
 	}	
 
 }
