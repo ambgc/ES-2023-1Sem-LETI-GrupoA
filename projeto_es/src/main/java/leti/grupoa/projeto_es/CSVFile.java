@@ -27,7 +27,7 @@ public class CSVFile {
 
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("/C:/Users/Vasco/Desktop/Escola/ES/HorarioDeExemplo.csv "); // Substituir pelo caminho do arquivo CSV
+		System.out.println("C:/Coding/HorarioDeExemplo.csv"); // Substituir pelo caminho do arquivo CSV
 		String fPath = scanner.nextLine();
 		System.out.println("HorarioDeExemplo.csv");		//Introduza o nome do ficheiro
 		String fName = scanner.nextLine();
