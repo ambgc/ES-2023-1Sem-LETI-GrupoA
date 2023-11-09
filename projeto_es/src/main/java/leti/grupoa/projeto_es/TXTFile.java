@@ -1,57 +1,84 @@
 package leti.grupoa.projeto_es;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Classe que representa um ficheiro de TXTFile (TXTFile) e fornece metodos para carregar e fazer print do conteudo do ficheiro.
+ */
 public class TXTFile {
 
-	private String name;
-	private String path;
-	private ArrayList<String> txtText;
+    private String name;
+    private String path;
+    private ArrayList<String> txtText;
 
-	public TXTFile(String name, String path) {
-		this.name = name;
-		this.path = path;
-	}
+    /**
+     * Construtor que cria uma instancia de TXTFile com um nome e caminho especificados.
+     *
+     * @param name Nome do ficheiro.
+     * @param path Localizacao do ficheiro.
+     */
+    public TXTFile(String name, String path) {
+        this.name = name;
+        this.path = path;
+    }
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * Devolve o nome do ficheiro.
+     *
+     * @return O nome do ficheiro.
+     */
+    public String getName() {
+        return name;
+    }
 
-	public String getPath() {
-		return path;
-	}
+    /**
+     * Devolve a localizacao.
+     *
+     * @return O caminho do ficheiro.
+     */
+    public String getPath() {
+        return path;
+    }
 
-	public ArrayList<String> getTxtText() {
-		return txtText;
-	}
+    /**
+     * Devolve o ArrayList de strings do objeto.
+     *
+     * @return O conteudo do ficheiro TXTFile.
+     */
+    public ArrayList<String> getTxtText() {
+        return txtText;
+    }
 
-	public void load() throws FileNotFoundException {
-		txtText = new ArrayList<String>();
-		Scanner s = new Scanner(new File(path));
-		while (s.hasNextLine()) {
-			String next = s.nextLine().replace(";", " | ");
-			next = next.replace("	 ", ", ");
-			if(txtText.isEmpty()) {
-			txtText.add(next);
-			}else {
-				txtText.add("\n" + next);
-			}
-		}
-	}
+    /**
+     * Carrega o conteudo do ficheiro TXTFile, processando-o e armazenando-o na ArrayList txtText.
+     *
+     * @throws FileNotFoundException Excecao lancada se o ficheiro .txt nao for encontrado no "path" dado.
+     */
+    public void load() throws FileNotFoundException {
+        txtText = new ArrayList<String>();
+        Scanner s = new Scanner(new File(path));
+        while (s.hasNextLine()) {
+            String next = s.nextLine().replace(";", " | ");
+            next = next.replace("	 ", ", ");
+            if (txtText.isEmpty()) {
+                txtText.add(next);
+            } else {
+                txtText.add("\n" + next);
+            }
+        }
+    }
 
-	public void print() throws FileNotFoundException {
-		load();
-		System.out.println(txtText + "\n");
-		System.out.println(txtText.get(0));
-	}
-
+    /**
+     * Carrega e imprime o conteudo do TXTFile.
+     *
+     * @throws FileNotFoundException Excecao lancada se o ficheiro TXTFile nao for encontrado.
+     */
+    public void print() throws FileNotFoundException {
+        load();
+        System.out.println(txtText + "\n");
+        System.out.println(txtText.get(0));
+    }
 }
