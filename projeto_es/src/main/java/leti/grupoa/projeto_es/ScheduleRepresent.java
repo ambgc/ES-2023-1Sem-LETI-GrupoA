@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ScheduleRepresent {
 
-	private Schedule targetSchedule;
+	private static Schedule targetSchedule;
 	
 	ScheduleRepresent(Schedule s ){
 		
@@ -23,11 +23,67 @@ public class ScheduleRepresent {
 	
 	
 	
-	public static String htmlData() {
+	public static  String htmlData(Schedule s) {
+		ArrayList<String> a =s.getScheduleText();
+		StringBuilder TheTableData = new StringBuilder();
+		System.out.println(s.getScheduleText());
+		System.out.println(s.loadSchedule());
+		
+		for(int y =0; y < 20; y++ ) {
+			int id = y+1;
+			TheTableData.append("{id:" + id + ",");
+			for(int x = 0; x<10; x++) {
+				
+				switch(x) {
+				case 0:
+					TheTableData.append("curso:");
+					break;
+				case 1:
+					TheTableData.append("uc:");
+					break;
+				
+				case 2:
+					TheTableData.append("turno:");
+					break;
+				
+				case 3:
+					TheTableData.append("turma:");
+					break;
+				case 4:
+					
+					TheTableData.append("inscritos:");
+					break;
+				case 5:
+					TheTableData.append("dia:");
+					break;
+				case 6:
+					TheTableData.append("h_inicio:");
+					break;
+				case 7:
+					TheTableData.append("h_fim:");
+					break;
+				case 8:
+					TheTableData.append("data:");
+					break;
+				case 9:
+					TheTableData.append("carac:");
+					break;
+				case 10:
+					TheTableData.append("sala:");
+					break;
+				}
+			TheTableData.append( a.get(x + y*x) + ",");
+			}
+				TheTableData.append("},");
+
+			
+		}
+		
 			//Aqui irá nao esta info de exemplo mas sim do CSV
 		String tableData = "{id:1, curso:\"Billy Bob\", uc:\"12\", turno:\"male\", turma:1, inscritos:\"red\", dia:\"2\", h_inicio:1, h_fim:\"12\", data:\"14\", caract:\"grande\", sala:\"12\"},\r\n"
 				+ "    {id:2, curso:\"Astrofisica\", uc:\"12\", turno:\"male\", turma:1, inscritos:\"red\", dia:\"2\", h_inicio:1, h_fim:\"12\", data:\"14\", caract:\"grande\", sala:\"12\"},";
-
+		
+		// Usar esta tableData enquanto a automatização não estiver funcional.
 		return tableData;
         
     }
@@ -72,22 +128,19 @@ public class ScheduleRepresent {
     }
 	
 
-    public static void generateHTML() {
+    public static void generateHTML(Schedule s) throws IOException {
         StringBuilder html = new StringBuilder();
 
-        html.append(generateTabulatorTemplate(htmlData()));
+        html.append(generateTabulatorTemplate(htmlData(s)));
         
-        try {
-            // Specify the file path where you want to save the HTML file
+
             String filePath = "Horario.html";
             
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.write(html.toString());
             fileWriter.close();
-            System.out.println("HTML file created successfully at " + filePath);
-        } catch (IOException e) {
-
-        }
+            System.out.println("HTML criado no ficheiro" + filePath);
+  
 
         
     }

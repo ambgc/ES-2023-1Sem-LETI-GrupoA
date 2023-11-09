@@ -29,32 +29,32 @@ class Testes { // <- Classe principalmente para testes de Schedule, mas acolhe t
 
 //	@Test
 //
-//	void test1() throws IOException {
+	void test1() throws IOException {
 //	-- (Afonso)
-//		String path = ("C:/Users/afons/Desktop/HorarioDeExemplo.csv");
-//		CSVFile f = new CSVFile("f", path);
-//		CSVParser csvParser = f.getCsvParser();
+		String path = ("C:/Coding/HorarioDeExemplo.csv");
+		CSVFile f = new CSVFile("f", path);
+		CSVParser csvParser = f.getCsvParser();
 //		
-//		//load 
-//		ArrayList<String> csvFile = new ArrayList<String>();
-//		for (CSVRecord csvRecord : csvParser) {
-//			String columns = "";
-//			columns = csvRecord.get(0);
-//			columns = columns.replace(";", " | ");
-//			csvFile.add(columns);
-//
-//			for (int i = 0; i < 10; i++) {
-//				if (i > 0 && i < csvRecord.size() && !csvRecord.get(i).isBlank() || !csvRecord.get(i).isEmpty()) {
-//					columns = columns + "," + csvRecord.get(i);
-//				}
-//			}
-//			columns = columns.replace(";", " | ");
-//			csvFile.add("\n" + columns);
-//		}
-//		//read
-//		System.out.println(csvFile);
-//		System.out.println("\n" + csvFile.get(0));
-//	}
+		//load 
+		ArrayList<String> csvFile = new ArrayList<String>();
+		for (CSVRecord csvRecord : csvParser) {
+			String columns = "";
+			columns = csvRecord.get(0);
+			columns = columns.replace(";", " | ");
+			csvFile.add(columns);
+
+		for (int i = 0; i < 10; i++) {
+				if (i > 0 && i < csvRecord.size() && !csvRecord.get(i).isBlank() || !csvRecord.get(i).isEmpty()) {
+					columns = columns + "," + csvRecord.get(i);
+				}
+			}
+			columns = columns.replace(";", " | ");
+			csvFile.add("\n" + columns);
+		}
+		//read
+		System.out.println(csvFile);
+		System.out.println("\n" + csvFile.get(0));
+	}
 //	
 //	@Test
 //

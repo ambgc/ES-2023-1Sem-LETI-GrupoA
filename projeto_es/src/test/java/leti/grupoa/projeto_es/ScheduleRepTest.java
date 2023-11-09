@@ -27,7 +27,7 @@ class ScheduleRepTest {
 	void test() throws IOException {
 
 		Schedule s = new Schedule(name, path);
-		ScheduleRepresent.generateHTML();
+		ScheduleRepresent.generateHTML(s);
 	}	
 
 }
