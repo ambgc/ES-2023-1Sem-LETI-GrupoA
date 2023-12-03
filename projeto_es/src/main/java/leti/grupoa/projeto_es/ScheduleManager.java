@@ -1,55 +1,67 @@
 package leti.grupoa.projeto_es;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
-import java.util.Scanner;
 
-public class ScheduleManager { // Resumo da Classe ScheduleManager. Tem métodos para adicionar, listar e
-								// visualizar horários de uma forma simples.
-								// Funciona como um organizador de horários
+/**
+ * Classe que representa um gestor de horários. Permite adicionar, armazenar e
+ * visualizar horários de forma simples. Funciona como um organizador de
+ * horários.
+ */
+public class ScheduleManager {
 
-	private ArrayList<Schedule> scheduleManager;
+    private ArrayList<Schedule> scheduleManager;
 
-	public ScheduleManager() {
-		scheduleManager = new ArrayList<Schedule>();
-	}
+    /**
+     * Construtor que cria uma instância de ScheduleManager.
+     */
+    public ScheduleManager() {
+        scheduleManager = new ArrayList<Schedule>();
+    }
 
-	// Adicionar um caminho de arquivo de horário à lista
-	public void add(Schedule s) {
-		scheduleManager.add(s);
-	}
+    /**
+     * Adiciona um objeto Schedule à lista de horários.
+     *
+     * @param s O objeto Schedule a ser adicionado.
+     */
+    public void add(Schedule s) {
+        scheduleManager.add(s);
+    }
 
-	// Obter a lista de arquivos de horário
-	public ArrayList<Schedule> getList() {
-		return scheduleManager;
-	}
+    /**
+     * Obtém a lista de horários armazenados.
+     *
+     * @return A lista de horários.
+     */
+    public ArrayList<Schedule> getList() {
+        return scheduleManager;
+    }
 
-	// Remover um arquivo de horário da lista
-	public void remove(Schedule s) {
-		scheduleManager.remove(s);
-	}
+    /**
+     * Remove um objeto Schedule da lista de horários geridos.
+     *
+     * @param s O objeto Schedule a ser removido.
+     */
+    public void remove(Schedule s) {
+        scheduleManager.remove(s);
+    }
 
-	// Limpar todos os arquivos de horário da lista
-	public void clear() {
-		scheduleManager.clear();
-	}
+    /**
+     * Remove todos os objetos Schedule da lista, limpando o gestor.
+     */
+    public void clear() {
+        scheduleManager.clear();
+    }
 
-	// Exibir o conteúdo do gestor de horários
-	public void printSchedules() {
-
-		int i = 1;
-		for (Schedule s : scheduleManager) {
-			System.out.println("Schedule " + i + ": " + s.getName());
-			s.printSchedule();
-			i++;
-		}
-
-	}
-
+    /**
+     * Exibe o conteúdo do gestor de horários, listando o nome dos horários e os
+     * seus dados.
+     */
+    public void printSchedules() {
+        int i = 1;
+        for (Schedule s : scheduleManager) {
+            System.out.println("Schedule " + i + ": " + s.getName());
+            s.printSchedule();
+            i++;
+        }
+    }
 }

@@ -1,5 +1,8 @@
 package leti.grupoa.projeto_es;
 
+### Classe obsoleta! Convertida na classe "Schedule" - Apenas se mantém por motivos de histórico.
+
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
