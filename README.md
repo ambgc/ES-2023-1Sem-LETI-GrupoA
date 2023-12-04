@@ -6,4 +6,4 @@
 # Alexandre Rodrigues | 105260 | alexrodiscte
 #
 # Funções por implementar:
-# (Até 06.11) - Automatização de leitura de ficheiro de horário para tabela em HTML.
+# (06.11) - Automatização de leitura de ficheiro de horário para tabela em HTML -- -Implementado-
