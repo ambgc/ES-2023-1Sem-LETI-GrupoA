@@ -1,8 +1,13 @@
 package leti.grupoa.projeto_es;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import javax.swing.JFileChooser;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -103,15 +108,16 @@ class ScheduleTest {
 	}
 
 	@Test
-	void test3() throws IOException {
+	void test3() throws IOException { // GERADOR ANTIGO!
 
+		System.out.println(s.getScheduleText());
 		s.printSchedule();
 		s.printSchedule();
 
 		TXTFile f = new TXTFile();
 		Schedule s2 = new Schedule(f);
-		s2.printSchedule();
-		// Schedule.generateHTML(s);
+		s.printSchedule();
+		s.generateHTML();
 	}
 
 }

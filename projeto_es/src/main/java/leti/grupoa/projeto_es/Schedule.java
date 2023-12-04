@@ -16,12 +16,13 @@ import javax.swing.JFileChooser;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.junit.jupiter.api.Test;
 
 /**
  * Classe que representa a criação de um ficheiro de horário a partir de um
  * ficheiro CSV.
  */
-public class Schedule {
+public class Schedule implements ColumnGetter {
 
 	private File f;
 	private CSVParser csvParser;
@@ -76,6 +77,7 @@ public class Schedule {
 			System.out.println("Ficheiro selecionado: " + f.getAbsolutePath());
 			FileReader fr = new FileReader(f.getAbsolutePath());
 			csvParser = new CSVParser(fr, CSVFormat.DEFAULT);
+			loadSchedule();
 		} else {
 			throw new IOException("Por favor selecione um ficheiro.");
 		}
@@ -104,14 +106,14 @@ public class Schedule {
 			columns = csvRecord.get(0);
 			columns = columns.replace(";", " | ");
 			scheduleText.add(columns);
-
 			for (int i = 0; i < 10; i++) {
 				if (i > 0 && i < csvRecord.size() && !csvRecord.get(i).isBlank()) {
 					columns = columns + "," + csvRecord.get(i);
+					columns = columns.replace(";", " | ");
+					scheduleText.add("\n" + columns);
 				}
 			}
-			columns = columns.replace(";", " | ");
-			scheduleText.add("\n" + columns);
+
 		}
 		return scheduleText;
 	}
@@ -127,87 +129,59 @@ public class Schedule {
 		System.out.println("\n" + scheduleText.get(0));
 	}
 
+	/// ----------- Funções de geração HTML ------------- ///
+
+	public String[] getColumn() {
+		return null;
+	}
+
 	/**
 	 * Carrega os dados de um Schedule para um ficheiro HTML.
 	 */
-	
-	public static String loadHTMLFromCSV(String csvFilePath) throws IOException {
-		List<List<String>> records = new ArrayList<>();
-		try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
-			String line = new String();
-			String headerLine = br.readLine();
-			headerLine = headerLine.replace("|", ";");
-			String[] headerColumns = headerLine.split(";");
-			while ((line = br.readLine()) != null) {
-				String[] values = line.split(";");
-				records.add(Arrays.asList(values));
-			}
 
-			StringBuilder htmlContent = new StringBuilder();
-			htmlContent.append("<html lang='en' xmlns='http://www.w3.org/1999/xhtml'>\n" + "	<head>\n"
-					+ "		<meta charset='utf-8' />\n"
-					+ "		<link href='https://unpkg.com/tabulator-tables@4.8.4/dist/css/tabulator.min.css' rel='stylesheet'>\n"
-					+ "		<script type='text/javascript' src='https://unpkg.com/tabulator-tables@4.8.4/dist/js/tabulator.min.js'></script>\n"
-					+ "	</head>\n" + "	<body>\n" + "		<H1>Horários</H1>	\n"
-					+ "		<div id='example-table'></div>\n" + "\n" + "		<script type='text/javascript'>\n"
-					+ "\n" + "			var tabledata = [ \n");
+	private String loadHTML() {
+		String[] headerColumns = getColumn(getScheduleText().get(0));
 
-			for (Iterator rowIterator = records.iterator(); rowIterator.hasNext();) {
-				List<String> row = (List<String>) rowIterator.next();
-				htmlContent.append("\t{");
+		StringBuilder htmlContent = new StringBuilder();
+		htmlContent.append(htmlHeader);
 
-				// Adiciona cada coluna ao objeto JavaScript
-				Iterator<String> columnIterator = row.iterator();
-				int columnIndex = 0;
+		Iterator<String> rowIterator = getScheduleText().iterator(); // iterador de Linhas
+		String[] aux;
+		int i = 0;
+		while (rowIterator.hasNext()) { // irá iterar enquanto houver linhas
+			htmlContent.append("\t{");
+			aux = getColumn(rowIterator.next());
+			for (int j = 0; j < aux.length; j++) {
 
-				while (columnIterator.hasNext()) {
-					String column = columnIterator.next();
-
-					// Extrai o nome da coluna (por exemplo, colunaCurso) da lista de registros
-					String columnName = "coluna" + columnIndex;
-
-					// Adiciona a coluna ao objeto JavaScript
-					if (columnIndex == 10) {
-						htmlContent.append(columnName).append(": '").append(column).append("'");
-					} else {
-						htmlContent.append(columnName).append(": '").append(column).append("',");
-					}
-
-					if (columnIterator.hasNext()) {
-						htmlContent.append("\n\t");
-					}
-
-					columnIndex++;
+				if (j == aux.length - 1) {
+					htmlContent.append("coluna" + i).append(": '").append(aux[j]).append("'");
+				} else {
+					htmlContent.append("coluna" + i).append(": '").append(aux[j]).append("',");
+					htmlContent.append("\n\t");
 				}
-
-				htmlContent.append("},\n");
+				i++;
 			}
-			htmlContent.append("];\n" + "			var table = new Tabulator('#example-table', {\n"
-					+ "				data:tabledata,\n" + "				layout:'fitDatafill',\n"
-					+ "				pagination:'local',\n" + "				paginationSize:10,\n"
-					+ "				paginationSizeSelector:[5, 10, 20, 40],\n" + "				movableColumns:true,\n"
-					+ "				paginationCounter:'rows',\n"
-					+ "				initialSort: [{ column: 'coluna0', dir: 'asc' }],\n"
-					+ "				columns:[\n");
-
-			// Ajuste: começamos a partir do segundo elemento
-			for (int columnIndex = 0; columnIndex < headerColumns.length; columnIndex++) {
-				htmlContent.append("					{title:'").append(headerColumns[columnIndex])
-						.append("', field:'coluna").append(columnIndex).append("', headerFilter:'input'},\n");
-			}
-
-			htmlContent.append(
-					"				],\n" + "			});\n" + "		</script>\n" + "	</body>\n" + "</html>");
-
-			System.out.println(htmlContent.toString());
-			return htmlContent.toString();
+			i = 0;
+			htmlContent.append("},\n");
 		}
+
+		htmlContent.append(varTable);
+
+		// Ajuste: começamos a partir do segundo elemento
+		for (int k = 0; i < headerColumns.length; k++) {
+			htmlContent.append("					{title:'").append(headerColumns[k]).append("', field:'coluna")
+					.append(k).append("', headerFilter:'input'},\n");
+		}
+		htmlContent.append(htmlFooter);
+
+		System.out.println(htmlContent.toString());
+		return htmlContent.toString();
 	}
 
-	public static void generateHTML(Schedule s) throws IOException {
+	public void generateHTML() throws IOException {
 		StringBuilder html = new StringBuilder();
-		System.out.println(s.getFilePath());
-		html.append(loadHTMLFromCSV(s.getFilePath()));
+		System.out.println(getFilePath());
+		html.append(loadHTML());
 
 		String filePath = "Horario.html";
 
@@ -217,5 +191,24 @@ public class Schedule {
 		System.out.println("HTML criado no ficheiro " + filePath);
 
 	}
+
+	/// --- Strings HTML --- ///
+
+	private static String htmlHeader = "<html lang='en' xmlns='http://www.w3.org/1999/xhtml'>\n" + "	<head>\n"
+			+ "		<meta charset='utf-8' />\n"
+			+ "		<link href='https://unpkg.com/tabulator-tables@4.8.4/dist/css/tabulator.min.css' rel='stylesheet'>\n"
+			+ "		<script type='text/javascript' src='https://unpkg.com/tabulator-tables@4.8.4/dist/js/tabulator.min.js'></script>\n"
+			+ "	</head>\n" + "	<body>\n" + "		<H1>Horários</H1>	\n" + "		<div id='example-table'></div>\n"
+			+ "\n" + "		<script type='text/javascript'>\n" + "\n" + "			var tabledata = [ \n";
+
+	private static String varTable = "];\n" + "			var table = new Tabulator('#example-table', {\n"
+			+ "				data:tabledata,\n" + "				layout:'fitDatafill',\n"
+			+ "				pagination:'local',\n" + "				paginationSize:10,\n"
+			+ "				paginationSizeSelector:[5, 10, 20, 40],\n" + "				movableColumns:true,\n"
+			+ "				paginationCounter:'rows',\n"
+			+ "				initialSort: [{ column: 'coluna0', dir: 'asc' }],\n" + "				columns:[\n";
+
+	private static String htmlFooter = "				],\n" + "			});\n" + "		</script>\n"
+			+ "	</body>\n" + "</html>";
 
 }

@@ -21,6 +21,7 @@ public class main {
 		System.out.println("\n5. Imprimir horário (1)");
 		s2.printSchedule();
 
+
 		System.out.println("\n6. Adicionar os horários ao gestor");
 		sm.add(s);
 		sm.add(s2);
@@ -43,7 +44,10 @@ public class main {
 		System.out.println("A remover...");
 		sm.count();
 		
-		System.out.println("\n10. Executar horário em HTML");
+		System.out.println("\n10. Executar horário em HTML (1 - ficheiro .txt)");
+		
+		System.out.println("\n10. Executar horário em HTML (2 - ficheiro CSV)");
+
 
 
 	}
