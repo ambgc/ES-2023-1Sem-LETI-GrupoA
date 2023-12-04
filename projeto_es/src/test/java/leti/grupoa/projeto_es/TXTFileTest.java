@@ -1,6 +1,7 @@
 package leti.grupoa.projeto_es;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,19 +13,18 @@ import org.junit.jupiter.api.Test;
 class TXTFileTest {
 	// Alterar local do ficheiro em cada maquina.
 
-	static String testPath;
 	static TXTFile f;
 
 	/**
 	 * Inicializa um novo TXTFile e Path.
+	 * @throws IOException 
 	 * 
 	 * 
 	 */
 
 	@BeforeAll
-	static void setUpBeforeClass() {
-		testPath = ("C:/Users/afons/Desktop/horario exemplo.txt");
-		f = new TXTFile("ficheiro", testPath);
+	static void setUpBeforeClass() throws IOException {
+		f = new TXTFile();
 	}
 
 	/**
@@ -37,7 +37,7 @@ class TXTFileTest {
 	@Test
 	void test() throws FileNotFoundException {
 		f.print();
-		Schedule s = Schedule.toSchedule(f);
-		s.printSchedule();
+		//Schedule s = Schedule.toSchedule(f);
+	//	s.printSchedule();
 	}
 }

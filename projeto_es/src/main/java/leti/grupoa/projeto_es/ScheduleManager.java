@@ -52,6 +52,13 @@ public class ScheduleManager {
         scheduleManager.clear();
     }
 
+    public void count() {
+    	int i = 0;
+    	for(Schedule s : scheduleManager) {
+    		i++;
+    	}
+    	System.out.println("Há "+ i + " horários guardados no gestor.");
+    }
     /**
      * Exibe o conteúdo do gestor de horários, listando o nome dos horários e os
      * seus dados.
@@ -59,7 +66,7 @@ public class ScheduleManager {
     public void printSchedules() {
         int i = 1;
         for (Schedule s : scheduleManager) {
-            System.out.println("Schedule " + i + ": " + s.getName());
+            System.out.println("---- Horário " + i + ": " + s.getName());
             s.printSchedule();
             i++;
         }

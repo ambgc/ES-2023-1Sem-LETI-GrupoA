@@ -15,13 +15,12 @@ public class ScheduleManagerTest {
 	// MAQUINA
 
 	private ScheduleManager manager;
-	String testPath = "C:/Users/afons/Desktop/HorarioDeExemplo.csv";
 	Schedule s;
 
 	@BeforeEach
 	public void setUp() throws IOException {
 		manager = new ScheduleManager();
-		s = new Schedule("f", testPath);
+		s = new Schedule();
 	}
 
 	/**

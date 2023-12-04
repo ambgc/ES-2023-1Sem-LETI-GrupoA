@@ -1,6 +1,7 @@
 package leti.grupoa.projeto_es;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,6 +10,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.swing.JFileChooser;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -20,66 +23,9 @@ import org.apache.commons.csv.CSVRecord;
  */
 public class Schedule {
 
-	private String name;
-	private String path;
+	private File f;
 	private CSVParser csvParser;
-	private ArrayList<String> scheduleText;
-
-	/**
-	 * Construtor de Schedule a partir de um ficheiro CSV especificado.
-	 *
-	 * @param fileName Nome do ficheiro CSV.
-	 * @param filePath Local do ficheiro CSV.
-	 * @throws IOException Exceção lançada se ocorrer um erro de E/S durante a
-	 *                     leitura do ficheiro.
-	 */
-	public Schedule(String fileName, String filePath) throws IOException {
-		this.name = fileName;
-		this.path = filePath;
-		FileReader fileReader = new FileReader(filePath);
-		csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT);
-		loadSchedule();
-	}
-
-	/**
-	 * Construtor de Schedule interativo, que pede o caminho e nome do ficheiro.
-	 *
-	 * @throws IOException Exceção lançada se ocorrer um erro de E/S durante a
-	 *                     leitura do ficheiro.
-	 */
-	public Schedule() throws IOException {
-		Scanner scanner = new Scanner(System.in);
-
-		System.out.println("Introduza a localização do ficheiro CSV: ");
-		path = scanner.nextLine();
-		System.out.println("Introduza o nome do ficheiro: ");
-		String fileName = scanner.nextLine();
-		if (!path.isBlank() && !fileName.isBlank()) {
-			FileReader fileReader = new FileReader(path);
-			csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT);
-			System.out.println("Ficheiro " + fileName + " localizado em " + path + " carregado com sucesso.");
-			loadSchedule();
-			scanner.close();
-		} else {
-			System.out.println("Diretório ou nome inválido.");
-			scanner.close();
-		}
-	}
-
-	/**
-	 * Construtor utilizado para criar uma instância de Schedule partir de dados já
-	 * existentes.
-	 *
-	 * @param fileName     Nome do ficheiro.
-	 * @param filePath     Localização do ficheiro.
-	 * @param scheduleText Texto do ficheiro (Dados CSV passados para ArrayList).
-	 */
-	private Schedule(String fileName, String filePath, ArrayList<String> scheduleText) {
-		name = fileName;
-		path = filePath;
-		csvParser = null;
-		this.scheduleText = scheduleText;
-	}
+	private ArrayList<String> scheduleText = new ArrayList<>();
 
 	/**
 	 * Obtém o nome do Schedule.
@@ -87,7 +33,7 @@ public class Schedule {
 	 * @return O nome do Schedule.
 	 */
 	public String getName() {
-		return name;
+		return f.getName();
 	}
 
 	/**
@@ -96,7 +42,7 @@ public class Schedule {
 	 * @return O caminho do ficheiro do Schedule.
 	 */
 	public String getFilePath() {
-		return path;
+		return f.getAbsolutePath();
 	}
 
 	/**
@@ -108,26 +54,51 @@ public class Schedule {
 		return csvParser;
 	}
 
+	public ArrayList<String> getScheduleText() {
+		if (csvParser != null)
+			loadSchedule();
+		return scheduleText;
+	}
+
 	/**
-	 * Converte um objeto TXTFile (ficheiro .txt convertido num objeto com os dados
-	 * e Path deste) em um objeto Schedule.
+	 * Construtor de Schedule a partir de um ficheiro CSV especificado.
+	 *
+	 * @param fileName Nome do ficheiro CSV.
+	 * @param filePath Local do ficheiro CSV.
+	 * @throws IOException Exceção lançada se ocorrer um erro de E/S durante a
+	 *                     leitura do ficheiro.
+	 */
+	public Schedule() throws IOException {
+		System.out.println("Por favor selecione um ficheiro CSV.");
+		JFileChooser jfc = new JFileChooser();
+		if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			f = jfc.getSelectedFile();
+			System.out.println("Ficheiro selecionado: " + f.getAbsolutePath());
+			FileReader fr = new FileReader(f.getAbsolutePath());
+			csvParser = new CSVParser(fr, CSVFormat.DEFAULT);
+		} else {
+			throw new IOException("Por favor selecione um ficheiro.");
+		}
+	}
+
+	/**
+	 * Constrói um Schedule a partir de um ficheiro TXTFile (.txt)
 	 *
 	 * @param f Um objeto TXTFile.
 	 * @return Uma instância de Schedule criada a partir do TXTFile fornecido.
 	 */
-	public static Schedule toSchedule(TXTFile f) {
-		Schedule s = new Schedule(f.getName(), f.getPath(), f.getTxtText());
-		return s;
+	public Schedule(TXTFile t) {
+		f = t.getFile();
+		csvParser = null;
+		scheduleText = t.getTxtText();
 	}
 
 	/**
-	 * Carrega o Schedule a partir do ficheiro CSV, processando os dados e
-	 * armazenando o texto.
+	 * Processa os dados e armazena o texto de um Schedule
 	 *
 	 * @return Uma lista de strings, que contém os dados do ficheiro CSV.
 	 */
-	public ArrayList<String> loadSchedule() {
-		scheduleText = new ArrayList<String>();
+	private ArrayList<String> loadSchedule() {
 		for (CSVRecord csvRecord : csvParser) {
 			String columns = "";
 			columns = csvRecord.get(0);
@@ -149,14 +120,16 @@ public class Schedule {
 	 * Imprime os dados do Schedule.
 	 */
 	public void printSchedule() {
+		if (csvParser != null || scheduleText.isEmpty()) {
+			loadSchedule();
+		}
 		System.out.println(scheduleText);
 		System.out.println("\n" + scheduleText.get(0));
 	}
 
-
-	public ArrayList<String> getScheduleText() {
-		return scheduleText;
-	}
+	/**
+	 * Carrega os dados de um Schedule para um ficheiro HTML.
+	 */
 	
 	public static String loadHTMLFromCSV(String csvFilePath) throws IOException {
 		List<List<String>> records = new ArrayList<>();
@@ -194,10 +167,10 @@ public class Schedule {
 					String columnName = "coluna" + columnIndex;
 
 					// Adiciona a coluna ao objeto JavaScript
-					if(columnIndex == 10) {
+					if (columnIndex == 10) {
 						htmlContent.append(columnName).append(": '").append(column).append("'");
-					}else {
-					htmlContent.append(columnName).append(": '").append(column).append("',");
+					} else {
+						htmlContent.append(columnName).append(": '").append(column).append("',");
 					}
 
 					if (columnIterator.hasNext()) {
@@ -214,7 +187,8 @@ public class Schedule {
 					+ "				pagination:'local',\n" + "				paginationSize:10,\n"
 					+ "				paginationSizeSelector:[5, 10, 20, 40],\n" + "				movableColumns:true,\n"
 					+ "				paginationCounter:'rows',\n"
-					+ "				initialSort: [{ column: 'coluna0', dir: 'asc' }],\n" + "				columns:[\n");
+					+ "				initialSort: [{ column: 'coluna0', dir: 'asc' }],\n"
+					+ "				columns:[\n");
 
 			// Ajuste: começamos a partir do segundo elemento
 			for (int columnIndex = 0; columnIndex < headerColumns.length; columnIndex++) {
@@ -224,37 +198,24 @@ public class Schedule {
 
 			htmlContent.append(
 					"				],\n" + "			});\n" + "		</script>\n" + "	</body>\n" + "</html>");
-			
+
 			System.out.println(htmlContent.toString());
 			return htmlContent.toString();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
 
-    public static void generateHTML(Schedule s) throws IOException {
-        StringBuilder html = new StringBuilder();
-        System.out.println(s.getFilePath());
-        html.append(loadHTMLFromCSV(s.getFilePath()));
+	public static void generateHTML(Schedule s) throws IOException {
+		StringBuilder html = new StringBuilder();
+		System.out.println(s.getFilePath());
+		html.append(loadHTMLFromCSV(s.getFilePath()));
 
-            String filePath = "Horario.html";
-            
-            FileWriter fileWriter = new FileWriter(filePath);
-            fileWriter.write(html.toString());
-            fileWriter.close();
-            System.out.println("HTML criado no ficheiro " + filePath);
-  
+		String filePath = "Horario.html";
 
-        
-    }
-	
-	
-	
-	
+		FileWriter fileWriter = new FileWriter(filePath);
+		fileWriter.write(html.toString());
+		fileWriter.close();
+		System.out.println("HTML criado no ficheiro " + filePath);
+
+	}
 
 }
