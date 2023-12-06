@@ -110,13 +110,13 @@ class ScheduleTest {
 	@Test
 	void test3() throws IOException { // GERADOR ANTIGO!
 
-		System.out.println(s.getScheduleText());
+	//	System.out.println(s.getScheduleText());
 		s.printSchedule();
-		s.printSchedule();
+	//	s.printSchedule();
 
-		TXTFile f = new TXTFile();
-		Schedule s2 = new Schedule(f);
-		s.printSchedule();
+	//	TXTFile f = new TXTFile();
+	//	Schedule s2 = new Schedule(f);
+	//	s.printSchedule();
 		s.generateHTML();
 	}
 
