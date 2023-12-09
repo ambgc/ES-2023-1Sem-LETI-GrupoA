@@ -117,7 +117,7 @@ class ScheduleTest {
 	//	TXTFile f = new TXTFile();
 	//	Schedule s2 = new Schedule(f);
 	//	s.printSchedule();
-		s.generateHTML();
+	//	s.generateHTML();
 	}
 
 }
