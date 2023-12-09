@@ -134,5 +134,10 @@ public class Schedule implements ColumnGetter {
 	public String[] getColumn() {
 		return null;
 	}
+	 
+
+	    public void addScheduleLine(String line) {
+	        scheduleText.add(line);
+	    }
 
 }
