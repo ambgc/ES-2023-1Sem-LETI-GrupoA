@@ -27,7 +27,6 @@ public class Schedule implements ColumnGetter {
 	private File f;
 	private CSVParser csvParser;
 	private ArrayList<String> scheduleText = new ArrayList<>();
-
 	/**
 	 * Obtém o nome do Schedule.
 	 *
@@ -70,7 +69,7 @@ public class Schedule implements ColumnGetter {
 	 *                     leitura do ficheiro.
 	 */
 	public Schedule() throws IOException {
-		System.out.println("Por favor selecione um ficheiro CSV.");
+		System.out.println("Por favor selecione um ficheiro horário CSV.");
 		JFileChooser jfc = new JFileChooser();
 		if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			f = jfc.getSelectedFile();
