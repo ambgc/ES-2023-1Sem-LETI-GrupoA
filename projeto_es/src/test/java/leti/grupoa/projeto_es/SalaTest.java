@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 class SalaTest {
 
-	private String name;
 	private File f;
 	private CSVParser csvParser;
 	private ArrayList<String> allCaracteristicas = new ArrayList<>();

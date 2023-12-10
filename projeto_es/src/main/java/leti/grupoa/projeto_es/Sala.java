@@ -11,7 +11,6 @@ import javax.swing.JFileChooser;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.junit.jupiter.api.Test;
 
 /**
  * A classe Sala representa uma sala de um edificio, com informacoes como o

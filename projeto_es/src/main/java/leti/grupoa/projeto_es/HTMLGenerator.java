@@ -3,7 +3,6 @@ package leti.grupoa.projeto_es;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * A classe {@code HTMLGenerator} gera um ficheiro HTML a partir de dados de um

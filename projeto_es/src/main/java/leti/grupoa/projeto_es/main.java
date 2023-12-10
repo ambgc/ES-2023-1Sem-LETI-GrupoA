@@ -1,6 +1,5 @@
 package leti.grupoa.projeto_es;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class main {
@@ -69,14 +68,20 @@ public class main {
 		HTMLGenerator hg2 = new HTMLGenerator(s, mt);
 		hg2.generateHTML("HorarioModificado");
 
-		System.out.println("\n11. Aplicar métricas a Salas");
+		System.out.println("\n11. Aplicar métricas a Salas (manualmente)");
 		Sala s1 = new Sala("AA2.23");
 		Sala s2 = new Sala("C1.01");
 
-		Metrica m1 = new Metrica("Capacidade diff.", "Capacidade Normal - Capacidade Exame / Capacidade Exame");
+		Metrica m1 = new Metrica("Capacidade diff.", "Capacidade Normal - 14 * No caracteristicas + Capacidade Exame");
+		System.out.println(m1.getFormula());
 		m1.addClass(s1);
 		m1.addClass(s2);
 		s1.caractChecker();
 		m1.getQuality();
+		
+		
+		
 	}
+	
+	
 }

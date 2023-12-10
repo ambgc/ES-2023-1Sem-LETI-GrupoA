@@ -35,13 +35,13 @@ class MetricaTest {
 		Sala s1 = new Sala("AA2.23");
 		Sala s2 = new Sala("C1.01");
 
-		Metrica m1 = new Metrica("Capacidade diff.", "Capacidade Normal - Capacidade Exame / Capacidade Exame");
+		Metrica m1 = new Metrica("Capacidade diff.", "Capacidade Normal - 14 * No caracteristicas + Capacidade Exame");
 		m1.addClass(s1);
 		m1.addClass(s2);
 		s1.caractChecker();
+		m1.getQuality();
 	//	System.out.println(s1.getCaracValue("Capacidade Normal"));
 	//	System.out.println(m1.getCriteria());
 			
-		m1.getQuality();
-	}
+                	}
 }

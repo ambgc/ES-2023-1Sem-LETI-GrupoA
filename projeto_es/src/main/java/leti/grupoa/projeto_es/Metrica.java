@@ -26,10 +26,9 @@ public class Metrica {
 		String[] aux = formula.split(" ");
 		ArrayList<String> aux2 = new ArrayList<>();
 		for (int i = 0; i < aux.length; i++) {
-			if (isNotOperator(aux[i])) {
+			if (isNotOperator(aux[i]) && !isNumeric(aux[i])) {
 				aux2.add(aux[i] + " " + aux[i + 1]);
 				i++;
-
 			} else {
 				aux2.add(aux[i]);
 			}
@@ -38,6 +37,7 @@ public class Metrica {
 		for (int i = 0; i < op.length; i++) {
 			op[i] = aux2.get(i);
 		}
+		System.out.println(Arrays.toString(op));
 	}
 
 	/**
@@ -257,13 +257,23 @@ public class Metrica {
 		ArrayList<Integer> qualities = new ArrayList<>();
 		ArrayList<String> criteria = getCriteria();
 
+		System.out.println(criteria);
 		for (Sala s : classList) {
 			int i = 0;
-			int[] input = new int[criteria.size()];
+			int[] input = new int[(int) (0.5 * op.length + 0.5)];
 			for (i = 0; i < input.length; i++) {
-				input[i] = s.getCaracValue(criteria.get(i));
-				System.out.println(criteria.get(i) + " = " + input[i]);
-				System.out.println(Arrays.toString(input));
+				if (isNumeric(op[i])) {
+					input[i] = Integer.parseInt(op[i]);
+				} else {
+					for (int k = 0; k < criteria.size(); k++) {
+						if (criteria.get(k).equals(op[i])) {
+							input[i] = s.getCaracValue(criteria.get(k));
+							System.out.println(criteria.get(i) + " = " + input[i]);
+							System.out.println(Arrays.toString(input));
+						}
+					}
+
+				}
 			}
 			int result = calculateQuality(input);
 			qualities.add(result);
