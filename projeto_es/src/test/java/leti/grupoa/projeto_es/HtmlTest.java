@@ -15,12 +15,14 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+
 class HtmlTest implements ColumnGetter {
 
 	static Schedule s2;
 	static Schedule s;
 	static TXTFile f;
 	static String[] columns;
+	static HTMLGenerator htmlgene;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -29,7 +31,12 @@ class HtmlTest implements ColumnGetter {
 		f = new TXTFile();
 		s = new Schedule();
 		s2 = new Schedule(f);
+		
+	
 	}
+		
+		
+	
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
@@ -141,4 +148,7 @@ class HtmlTest implements ColumnGetter {
 		System.out.println("HTML criado no ficheiro " + filePath);
 
 	}
+	
+	
+	
 }
