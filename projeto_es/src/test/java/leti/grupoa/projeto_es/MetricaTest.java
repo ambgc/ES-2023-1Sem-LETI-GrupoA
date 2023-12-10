@@ -1,5 +1,7 @@
 package leti.grupoa.projeto_es;
 
+import java.io.IOException;
+
 import javax.script.ScriptException;
 
 import org.junit.jupiter.api.AfterAll;
@@ -9,14 +11,10 @@ import org.junit.jupiter.api.Test;
 class MetricaTest {
 
 	static Metrica m;
-	static int[] valores = {20, 5, 3, 10};
+	static int[] valores = { 20, 5, 3, 10 };
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-
-		String s = ("CapacidadeNormal * CapacidadeExtra - QuantidadeAlunos / 2");
-		
-		m = new Metrica("Max. Capacidade de alunos", s);
 
 	}
 
@@ -28,6 +26,22 @@ class MetricaTest {
 	void testObterOperacao() throws NumberFormatException, ScriptException {
 
 		System.out.println(m.getFormula());
-		System.out.println("Qualidade da métrica '"+ m.getName() + "':" + m.calculateQuality(valores));
+		System.out.println("Qualidade da métrica '" + m.getName() + "':" + m.calculateQuality(valores));
+	}
+
+	@Test
+	void testAllmetrica() throws IOException, Exception {
+
+		Sala s1 = new Sala("AA2.23");
+		Sala s2 = new Sala("C1.01");
+
+		Metrica m1 = new Metrica("Capacidade diff.", "Capacidade Normal - Capacidade Exame / Capacidade Exame");
+		m1.addClass(s1);
+		m1.addClass(s2);
+		s1.caractChecker();
+	//	System.out.println(s1.getCaracValue("Capacidade Normal"));
+	//	System.out.println(m1.getCriteria());
+			
+		m1.getQuality();
 	}
 }

@@ -189,13 +189,13 @@ class SalaTest {
 	 */
 	void test5() throws Exception {
 	    // Cria uma instância da classe Sala.
-	    Sala s = new Sala();
+	    Sala s = new Sala("AA3.24");
 	    
 	    // Verifica e imprime informações sobre a sala "AA3.24".
-	    s.caractChecker("AA3.24");
+	    s.caractChecker();
 	    
 	    // Imprime o valor associado à característica "No caracteristicas".
-	    System.out.println(s.getCaracValue("No caracteristicas"));
+	    System.out.println("Numero de Características" + s.getCaracValue("No caracteristicas"));
 	    
 	    // Imprime o valor associado à característica "Anfitieatro".
 	    System.out.println(s.getCaracValue("Anfitieatro"));
@@ -210,10 +210,10 @@ class SalaTest {
 	 */
 	void test6() throws Exception {
 	    // Cria uma instância da classe Sala.
-	    Sala s = new Sala();
+	    Sala s = new Sala("AA3.24");
 	    
 	    // Verifica e imprime informações sobre a sala "AA3.24".
-	    s.caractChecker("AA3.24");
+	    s.caractChecker();
 	    
 	    // Imprime se a sala possui a característica "Laboratorio de Telecomunicacoes".
 	    System.out.println(s.hasCarac("Laboratorio de Telecomunicacoes"));

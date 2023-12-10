@@ -1,52 +1,95 @@
 package leti.grupoa.projeto_es;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * A classe {@code Metrica} representa uma métrica associada a um nome e uma
+ * fórmula matemática.
+ */
 public class Metrica {
 
 	private String name;
 	private String[] op;
-	private ArrayList<String[]> classList;
+	private ArrayList<Sala> classList = new ArrayList<>();
 	private int[] values;
 
+	/**
+	 * Construtor da classe Metrica.
+	 *
+	 * @param name    O nome da métrica.
+	 * @param formula A fórmula matemática associada à métrica.
+	 */
 	public Metrica(String name, String formula) {
-
 		this.name = name;
-		op = formula.split(" ");
+		String[] aux = formula.split(" ");
+		ArrayList<String> aux2 = new ArrayList<>();
+		for (int i = 0; i < aux.length; i++) {
+			if (isNotOperator(aux[i])) {
+				aux2.add(aux[i] + " " + aux[i + 1]);
+				i++;
+
+			} else {
+				aux2.add(aux[i]);
+			}
+		}
+		op = new String[aux2.size()];
+		for (int i = 0; i < op.length; i++) {
+			op[i] = aux2.get(i);
+		}
 	}
 
+	/**
+	 * Obtém a operação associada à fórmula.
+	 *
+	 * @return Um vetor de strings representando a operação.
+	 */
 	public String[] getOperacao() {
-
 		return op;
 	}
 
+	/**
+	 * Obtém o nome da métrica.
+	 *
+	 * @return O nome da métrica.
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Obtém a fórmula da métrica.
+	 *
+	 * @return Uma string representando a fórmula da métrica.
+	 */
 	public String getFormula() {
-
-		String formula = "";
+		StringBuilder formula = new StringBuilder();
 		for (int i = 0; i < op.length; i++) {
-			formula += op[i] + " ";
+			formula.append(op[i]).append(" ");
 		}
-		return "Fórmula: " + formula;
+		return "Fórmula: " + formula.toString();
 	}
 
-	// introduzir a linha do horário correpondente à aula que se quer add
-	public void addClass(String[] aula) {
-
-		classList.add(aula);
+	/**
+	 * Adiciona uma Sala à lista de aulas associada à métrica.
+	 *
+	 * @param aula Um objeto Sala.
+	 */
+	public void addClass(Sala s) {
+		classList.add(s);
 	}
 
-	public ArrayList<String[]> getAulasSelecionadas() {
-
+	/**
+	 * Obtém a lista de Salas selecionadas associada à métrica.
+	 *
+	 * @return A lista de Salas selecionadas.
+	 */
+	public ArrayList<Sala> getAulasSelecionadas() {
 		return classList;
 	}
 
 	private boolean isNotOperator(String s) {
-
 		boolean b = true;
 		String[] operators = { "+", "-", "/", "*" };
 		for (int i = 0; i < operators.length; i++) {
@@ -54,11 +97,9 @@ public class Metrica {
 				b = false;
 		}
 		return b;
-
 	}
 
 	private boolean isNumeric(String s) {
-
 		try {
 			int i = Integer.parseInt(s);
 		} catch (NumberFormatException nfe) {
@@ -67,8 +108,12 @@ public class Metrica {
 		return true;
 	}
 
+	/**
+	 * Obtém os critérios presentes na fórmula da métrica.
+	 *
+	 * @return Uma lista de strings indicativa dos critérios.
+	 */
 	public ArrayList<String> getCriteria() {
-
 		ArrayList<String> criteriaList = new ArrayList<>();
 		for (int i = 0; i < op.length; i++) {
 			if (isNotOperator(op[i]) && !isNumeric(op[i]))
@@ -78,14 +123,13 @@ public class Metrica {
 	}
 
 	private String[] matchExpression(int[] inputValues) throws NumberFormatException {
-
 		if (inputValues.length > (0.5 * op.length) + 0.5)
 			throw new IllegalArgumentException("Valores a mais.");
 
 		if (op.length > (2 * inputValues.length) - 1)
 			throw new IllegalArgumentException("Valores a menos.");
-		values = inputValues;
 
+		values = inputValues;
 		int currValue = 0;
 		String[] expression = new String[op.length];
 
@@ -97,41 +141,32 @@ public class Metrica {
 				expression[i] = op[i];
 			}
 		}
+		System.out.println(Arrays.toString(expression));
 		return expression;
 	}
 
 	private int calculate(String v1, String v2, String op) {
-
 		int number1 = Integer.parseInt(v1);
 		int number2 = Integer.parseInt(v2);
 		int result = 0;
 
 		switch (op) {
-
-		// caso de soma
 		case "+":
 			result = number1 + number2;
 			System.out.println(number1 + " + " + number2 + " = " + result);
 			break;
-
-		// caso de subtração
 		case "-":
 			result = number1 - number2;
 			System.out.println(number1 + " - " + number2 + " = " + result);
 			break;
-
-		// caso de multiplicação
 		case "*":
 			result = number1 * number2;
 			System.out.println(number1 + " * " + number2 + " = " + result);
 			break;
-
-		// caso de divisão
 		case "/":
 			result = number1 / number2;
 			System.out.println(number1 + " / " + number2 + " = " + result);
 			break;
-
 		default:
 			System.out.println("Operação inválida.");
 			break;
@@ -140,8 +175,14 @@ public class Metrica {
 		return result;
 	}
 
-	private String[] closeGap(String[] expression) {
+	/**
+	 * Elimina espaços entre valores e operadores, formando novamente uma "formula".
+	 *
+	 * @param A expressão a "juntar".
+	 * @return A expressão dada como input, mas sem espaço entre caracteres.
+	 */
 
+	private String[] closeGap(String[] expression) {
 		ArrayList<String> aux = new ArrayList<>();
 		String[] newV = new String[expression.length];
 		for (int i = 0; i < expression.length; i++) {
@@ -155,18 +196,22 @@ public class Metrica {
 
 		System.out.println(Arrays.toString(newV));
 		return newV;
-
 	}
 
+	/**
+	 * Calcula a qualidade com base nos valores fornecidos.
+	 *
+	 * @param inputValues Os valores de entrada para a fórmula da métrica.
+	 * @return O resultado do cálculo da qualidade.
+	 */
 	public int calculateQuality(int[] inputValues) {
-
 		int result = 0;
 		String[] expression = matchExpression(inputValues);
 		if (expression.length == 1)
 			return Integer.parseInt(expression[0]);
 
-		if (expression.length > 3) {
-			while (expression[3] != null) {
+		if (expression.length >= 3) {
+			while (expression[2] != null) {
 				for (int i = 0; i < expression.length; i++) {
 					if (expression[i] != null) {
 
@@ -199,19 +244,32 @@ public class Metrica {
 		return Integer.parseInt(expression[0]);
 	}
 
-	public ArrayList<Integer> getQuality() {
+	/**
+	 * Obtém a qualidade com base nos critérios da métrica.
+	 *
+	 * @return Uma lista de inteiros representando a qualidade para cada conjunto de
+	 *         critérios.
+	 * @throws IOException
+	 */
+	public ArrayList<Integer> getQuality() throws IOException {
+
 		// POR IMPLEMENTAR
 		ArrayList<Integer> qualities = new ArrayList<>();
 		ArrayList<String> criteria = getCriteria();
-		// for(Sala c : classList){
-		// int i = 0;
-		// int[] input = new int[criteria.size()]
-		// for(String s : criteria){
-		// input[i] = c.getCaracteristicValue(s);
-		// i++
-		// }
-		// qualities.add(calculateQuality(input))
-		// }
+
+		for (Sala s : classList) {
+			int i = 0;
+			int[] input = new int[criteria.size()];
+			for (i = 0; i < input.length; i++) {
+				input[i] = s.getCaracValue(criteria.get(i));
+				System.out.println(criteria.get(i) + " = " + input[i]);
+				System.out.println(Arrays.toString(input));
+			}
+			int result = calculateQuality(input);
+			qualities.add(result);
+			System.out
+					.println("Qualidade sala " + s.getNome() + " para a formula '" + this.getName() + "' é " + result);
+		}
 		return qualities;
 	}
 }

@@ -103,7 +103,7 @@ public class Schedule implements ColumnGetter {
 		for (CSVRecord csvRecord : csvParser) {
 			String columns = "";
 			columns = csvRecord.get(0);
-			columns = columns.replace(";", " | ");
+			columns = columns.replace(";", " | "); 
 			scheduleText.add(columns);
 			for (int i = 0; i < 10; i++) {
 				if (i > 0 && i < csvRecord.size() && !csvRecord.get(i).isBlank()) {
