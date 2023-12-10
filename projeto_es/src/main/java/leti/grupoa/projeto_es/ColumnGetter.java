@@ -15,4 +15,6 @@ public interface ColumnGetter {
 			throw new IllegalArgumentException("Invalid input text.");
 		}
 	}
+	
+	
 }
