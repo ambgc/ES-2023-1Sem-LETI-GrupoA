@@ -25,13 +25,13 @@ public class Sala {
 	private ArrayList<String> aux = new ArrayList<>();
 
 	/**
-	 * Construtor da classe Sala que solicita ao usuário a seleção de um arquivo de
+	 * Construtor da classe Sala que solicita ao usuario a selecao de um arquivo de
 	 * salas, realiza a leitura do arquivo e inicializa as estruturas de dados
-	 * necessárias.
+	 * necessarias.
 	 *
-	 * @throws IOException Se ocorrer um erro de entrada/saída durante a seleção ou
+	 * @throws IOException Se ocorrer um erro de entrada/saida durante a selecao ou
 	 *                     leitura do arquivo.
-	 * @throws Exception   Se houver um erro não especificado durante a execução do
+	 * @throws Exception   Se houver um erro nao especificado durante a execucao do
 	 *                     construtor.
 	 */
 	public Sala(String salaName) throws IOException, Exception {
@@ -39,7 +39,7 @@ public class Sala {
 		JFileChooser jfc = new JFileChooser();
 		this.salaName = salaName;
 
-		// Verifica se o usuário selecionou um arquivo.
+		// Verifica se o usuario selecionou um arquivo.
 		if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			f = jfc.getSelectedFile();
 			System.out.println("Ficheiro selecionado: " + f.getAbsolutePath());
@@ -48,11 +48,11 @@ public class Sala {
 			FileReader fr = new FileReader(f.getAbsolutePath());
 			csvParser = new CSVParser(fr, CSVFormat.DEFAULT);
 
-			// Chama o método csvRead para processar o conteúdo do arquivo.
+			// Chama o metodo csvRead para processar o conteudo do arquivo.
 			csvRead();
 			caractChecker();
 		} else {
-			// Lança uma exceção se o usuário não selecionar um arquivo.
+			// Lanca uma excecao se o usuario nao selecionar um arquivo.
 			throw new IOException("Por favor, selecione um ficheiro.");
 		}
 	}
@@ -63,19 +63,19 @@ public class Sala {
 
 	/**
 	 * Realiza a leitura de um arquivo CSV e processa suas linhas para atualizar
-	 * listas de características.
+	 * listas de caracteristicas.
 	 *
-	 * @throws IOException Se ocorrer um erro de entrada/saída durante o
+	 * @throws IOException Se ocorrer um erro de entrada/saida durante o
 	 *                     processamento do arquivo CSV.
 	 */
 	void csvRead() throws IOException {
 		// Itera sobre as linhas do arquivo CSV usando CSVRecord.
 		for (CSVRecord csvRecord : csvParser) {
-			// Obtém a linha atual do CSV.
+			// Obtem a linha atual do CSV.
 			String currLine = csvRecord.get(0);
 
-			// Adiciona a linha à lista auxiliar, considerando quebra de linha se
-			// necessário.
+			// Adiciona a linha a lista auxiliar, considerando quebra de linha se
+			// necessario.
 			if (aux.size() == 0) {
 				aux.add(currLine);
 			} else {
@@ -83,22 +83,22 @@ public class Sala {
 			}
 		}
 
-		// Chama a função addCarac para atualizar a lista geral de características.
+		// Chama a funcao addCarac para atualizar a lista geral de caracteristicas.
 		addCarac();
 	}
 
 	/**
-	 * Adiciona características à lista geral de características com base na
+	 * Adiciona caracteristicas a lista geral de caracteristicas com base na
 	 * primeira linha da lista auxiliar.
 	 *
-	 * @throws IOException Se ocorrer um erro de entrada/saída durante o
+	 * @throws IOException Se ocorrer um erro de entrada/saida durante o
 	 *                     processamento.
 	 */
 	void addCarac() throws IOException {
 		// Divide a primeira linha da lista auxiliar usando ";" como delimitador.
 		String[] aux2 = aux.get(0).split(";");
 
-		// Adiciona as características à lista geral de características.
+		// Adiciona as caracteristicas a lista geral de caracteristicas.
 		for (int i = 0; i < aux2.length; i++) {
 			aux2[i].trim();
 			allCaracteristicas.add(aux2[i]);
@@ -106,34 +106,34 @@ public class Sala {
 	}
 
 	/**
-	 * Verifica e processa as características associadas a uma determinada sala.
+	 * Verifica e processa as caracteristicas associadas a uma determinada sala.
 	 *
-	 * @param salaName O nome da sala para a qual as características serão
-	 *                 verificadas e processadas.
-	 * @throws IOException Se ocorrer um erro de entrada/saída durante o
+	 * verificadas e processadas.
+	 * 
+	 * @throws IOException Se ocorrer um erro de entrada/saida durante o
 	 *                     processamento.
 	 */
 	void caractChecker() throws IOException {
-		// String para armazenar as características da sala.
+		// String para armazenar as caracteristicas da sala.
 		String caractSala = "";
 
-		// Procura a sala na lista auxiliar e obtém suas características.
+		// Procura a sala na lista auxiliar e obtem suas caracteristicas.
 		for (int i = 1; i < aux.size(); i++) {
 			if (aux.get(i).contains(salaName)) {
 				caractSala = aux.get(i);
 			}
 		}
 
-		// Processa as características se a sala não estiver vazia.
+		// Processa as caracteristicas se a sala nao estiver vazia.
 		if (!caractSala.isEmpty()) {
-			// Adiciona elementos vazios para as duas primeiras posições da lista.
+			// Adiciona elementos vazios para as duas primeiras posicoes da lista.
 			myCaracteristicas.add(0, "");
 			myCaracteristicas.add(1, "");
 
-			// Divide as características da sala usando ";" como delimitador.
+			// Divide as caracteristicas da sala usando ";" como delimitador.
 			String[] splitColumn = caractSala.split(";");
 
-			// Adiciona as características processadas à lista.
+			// Adiciona as caracteristicas processadas a lista.
 			for (int i = 2; i < splitColumn.length; i++) {
 				if (!splitColumn[i].isEmpty()) {
 					myCaracteristicas.add(i, splitColumn[i]);
@@ -145,37 +145,37 @@ public class Sala {
 	}
 
 	/**
-	 * Retorna o valor associado a uma determinada característica, representada como
-	 * uma string, se essa característica existir nas listas de características e
+	 * Retorna o valor associado a uma determinada caracteristica, representada como
+	 * uma string, se essa caracteristica existir nas listas de caracteristicas e
 	 * valores.
 	 *
-	 * @param carac A característica para a qual se deseja obter o valor como um
+	 * @param carac A caracteristica para a qual se deseja obter o valor como um
 	 *              inteiro.
-	 * @return O valor associado à característica como um inteiro.
-	 * @throws IOException              Se ocorrer um erro de entrada/saída ao
+	 * @return O valor associado a caracteristica como um inteiro.
+	 * @throws IOException              Se ocorrer um erro de entrada/saida ao
 	 *                                  converter a string para inteiro.
-	 * @throws IllegalArgumentException Se a característica fornecida não existir na
-	 *                                  lista de características.
+	 * @throws IllegalArgumentException Se a caracteristica fornecida nao existir na
+	 *                                  lista de caracteristicas.
 	 */
 
 	int getCaracValue(String carac) throws IOException {
-		// fazer com que o input seja uma caracteristica qualquer, se existir devovler o
+		// fazer com que o input seja uma caracteristica qualquer, se existir devolver o
 		// valor como int
 		for (int i = 0; i < allCaracteristicas.size(); i++) {
 			if (allCaracteristicas.get(i).equals(carac) && !myCaracteristicas.isEmpty()) {
 				return Integer.parseInt(myCaracteristicas.get(i));
 			}
 		}
-		throw new IllegalArgumentException("A caraceterística '" + carac + "' não existe");
+		throw new IllegalArgumentException("A caraceteristica '" + carac + "' nao existe");
 	}
 
 	/**
-	 * Verifica se a lista de características contém um determinado caráter e se a
-	 * correspondente característica do objeto atual contém o marcador "X".
+	 * Verifica se a lista de caracteristicas contem um determinado caractere e se a
+	 * correspondente caracteristica do objeto atual contem o marcador "X".
 	 *
-	 * @param carac O caráter a ser verificado na lista de características.
-	 * @return {@code true} se o caráter estiver presente e a característica
-	 *         correspondente contiver "X", {@code false} caso contrário.
+	 * @param carac O caractere a ser verificado na lista de caracteristicas.
+	 * @return {@code true} se o caractere estiver presente e a caracteristica
+	 *         correspondente conter "X", {@code false} caso contrario.
 	 */
 
 	boolean hasCarac(String carac) {
@@ -219,7 +219,7 @@ public class Sala {
 	}
 
 	/**
-	 * Obtem o numero de atriburos associados a sala.
+	 * Obtem o numero de atributos associados a sala.
 	 *
 	 * @return Lista de tipos da sala.
 	 */
@@ -241,5 +241,4 @@ public class Sala {
 				+ ", capacidadeExame=" + getCapacidadeExame() + ", nCaracteristicas=" + getNumeroCaracteristicas()
 				+ ", caracteristicas=" + getCaracteristicasSala().toString() + "]";
 	}
-
 }

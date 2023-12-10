@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * A classe {@code Metrica} representa uma métrica associada a um nome e uma
- * fórmula matemática.
+ * A classe {@code Metrica} representa uma metrica associada a um nome e uma
+ * formula matematica.
  */
 public class Metrica {
 
@@ -15,12 +15,12 @@ public class Metrica {
 	private ArrayList<Sala> classList = new ArrayList<>();
 	private int[] values;
 
-	/**
-	 * Construtor da classe Metrica.
-	 *
-	 * @param name    O nome da métrica.
-	 * @param formula A fórmula matemática associada à métrica.
-	 */
+	 /**
+     * Construtor da classe Metrica.
+     *
+     * @param name    O nome da metrica.
+     * @param formula A formula matematica associada a metrica.
+     */
 	public Metrica(String name, String formula) {
 		this.name = name;
 		String[] aux = formula.split(" ");
@@ -41,7 +41,7 @@ public class Metrica {
 	}
 
 	/**
-	 * Obtém a operação associada à fórmula.
+	 * obtem a operação associada à fórmula.
 	 *
 	 * @return Um vetor de strings representando a operação.
 	 */
@@ -50,7 +50,7 @@ public class Metrica {
 	}
 
 	/**
-	 * Obtém o nome da métrica.
+	 * obtem o nome da métrica.
 	 *
 	 * @return O nome da métrica.
 	 */
@@ -59,7 +59,7 @@ public class Metrica {
 	}
 
 	/**
-	 * Obtém a fórmula da métrica.
+	 * obtem a fórmula da métrica.
 	 *
 	 * @return Uma string representando a fórmula da métrica.
 	 */
@@ -74,14 +74,14 @@ public class Metrica {
 	/**
 	 * Adiciona uma Sala à lista de aulas associada à métrica.
 	 *
-	 * @param aula Um objeto Sala.
+	 * @param s Um objeto Sala.
 	 */
 	public void addClass(Sala s) {
 		classList.add(s);
 	}
 
 	/**
-	 * Obtém a lista de Salas selecionadas associada à métrica.
+	 * obtem a lista de Salas selecionadas associada à métrica.
 	 *
 	 * @return A lista de Salas selecionadas.
 	 */
@@ -109,7 +109,7 @@ public class Metrica {
 	}
 
 	/**
-	 * Obtém os critérios presentes na fórmula da métrica.
+	 * obtem os critérios presentes na fórmula da métrica.
 	 *
 	 * @return Uma lista de strings indicativa dos critérios.
 	 */
@@ -178,7 +178,7 @@ public class Metrica {
 	/**
 	 * Elimina espaços entre valores e operadores, formando novamente uma "formula".
 	 *
-	 * @param A expressão a "juntar".
+	 * @param expression A expressão a "juntar".
 	 * @return A expressão dada como input, mas sem espaço entre caracteres.
 	 */
 
@@ -245,7 +245,7 @@ public class Metrica {
 	}
 
 	/**
-	 * Obtém a qualidade com base nos critérios da métrica.
+	 * obtem a qualidade com base nos critérios da métrica.
 	 *
 	 * @return Uma lista de inteiros representando a qualidade para cada conjunto de
 	 *         critérios.

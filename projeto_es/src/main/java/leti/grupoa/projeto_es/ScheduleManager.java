@@ -3,8 +3,8 @@ package leti.grupoa.projeto_es;
 import java.util.ArrayList;
 
 /**
- * Classe que representa um gestor de horários. Permite adicionar, armazenar e
- * visualizar horários de forma simples. Funciona como um organizador de
+ * Classe que representa um gestor de horarios. Permite adicionar, armazenar e
+ * visualizar horarios de forma simples. Funciona como um organizador de
  * horários.
  */
 public class ScheduleManager {
@@ -12,14 +12,14 @@ public class ScheduleManager {
     private ArrayList<Schedule> scheduleManager;
 
     /**
-     * Construtor que cria uma instância de ScheduleManager.
+     * Construtor que cria uma instancia de ScheduleManager.
      */
     public ScheduleManager() {
         scheduleManager = new ArrayList<Schedule>();
     }
 
     /**
-     * Adiciona um objeto Schedule à lista de horários.
+     * Adiciona um objeto Schedule a lista de horarios.
      *
      * @param s O objeto Schedule a ser adicionado.
      */
@@ -28,16 +28,16 @@ public class ScheduleManager {
     }
 
     /**
-     * Obtém a lista de horários armazenados.
+     * obtem a lista de horarios armazenados.
      *
-     * @return A lista de horários.
+     * @return A lista de horarios.
      */
     public ArrayList<Schedule> getList() {
         return scheduleManager;
     }
 
     /**
-     * Remove um objeto Schedule da lista de horários geridos.
+     * Remove um objeto Schedule da lista de horarios geridos.
      *
      * @param s O objeto Schedule a ser removido.
      */
@@ -60,7 +60,7 @@ public class ScheduleManager {
     	System.out.println("Há "+ i + " horários guardados no gestor.");
     }
     /**
-     * Exibe o conteúdo do gestor de horários, listando o nome dos horários e os
+     * Exibe o conteúdo do gestor de horarios, listando o nome dos horários e os
      * seus dados.
      */
     public void printSchedules() {

@@ -21,9 +21,7 @@ public class TXTFile {
 	 * Construtor que cria uma instancia de TXTFile com um nome e caminho
 	 * especificados.
 	 *
-	 * @param name Nome do ficheiro.
-	 * @param path Localizacao do ficheiro.
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public TXTFile() throws IOException {
 		System.out.println("Por favor selecione um ficheiro de texto.");
@@ -32,11 +30,11 @@ public class TXTFile {
 			f = jfc.getSelectedFile();
 			System.out.println("Ficheiro selecionado: " + f.getAbsolutePath());
 			load();
-		}else {
+		} else {
 			throw new IOException("Por favor selecione um ficheiro.");
 		}
 	}
-	
+
 	public File getFile() {
 		return f;
 	}

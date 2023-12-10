@@ -2,6 +2,11 @@ package leti.grupoa.projeto_es;
 
 import java.util.ArrayList;
 
+/**
+ * A classe mestre do projeto, que compila todos os passos significativos
+ * que seriam tomados pelo cliente ao utilizar esta aplicacao.
+ */
+
 public class main {
 
 	static ArrayList<String> mt = new ArrayList<>();

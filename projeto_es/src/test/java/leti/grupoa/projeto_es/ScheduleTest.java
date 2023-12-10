@@ -16,6 +16,10 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Classe de testes para funções relativas ao Schedule.
+ */
+
 class ScheduleTest {
 
 	static Schedule s;

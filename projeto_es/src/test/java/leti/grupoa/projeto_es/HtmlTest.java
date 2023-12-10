@@ -15,6 +15,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Classe de testes para funcoes relativas a HTML
+ */
 
 class HtmlTest implements ColumnGetter {
 

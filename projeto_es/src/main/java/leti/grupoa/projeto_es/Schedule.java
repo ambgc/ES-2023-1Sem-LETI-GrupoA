@@ -12,7 +12,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 /**
- * Classe que representa a criação de um ficheiro de horário a partir de um
+ * Classe que representa a criacao de um ficheiro de horario a partir de um
  * ficheiro CSV.
  */
 public class Schedule implements ColumnGetter {
@@ -20,8 +20,9 @@ public class Schedule implements ColumnGetter {
 	private File f;
 	private CSVParser csvParser;
 	private ArrayList<String> scheduleText = new ArrayList<>();
+
 	/**
-	 * Obtém o nome do Schedule.
+	 * obtem o nome do Schedule.
 	 *
 	 * @return O nome do Schedule.
 	 */
@@ -30,7 +31,7 @@ public class Schedule implements ColumnGetter {
 	}
 
 	/**
-	 * Obtém o caminho do ficheiro do Schedule.
+	 * obtem o caminho do ficheiro do Schedule.
 	 *
 	 * @return O caminho do ficheiro do Schedule.
 	 */
@@ -39,7 +40,7 @@ public class Schedule implements ColumnGetter {
 	}
 
 	/**
-	 * Obtém o parser (leitor de CSV) associado a este Schedule.
+	 * obtem o parser (leitor de CSV) associado a este Schedule.
 	 *
 	 * @return O parser CSV.
 	 */
@@ -56,8 +57,6 @@ public class Schedule implements ColumnGetter {
 	/**
 	 * Construtor de Schedule a partir de um ficheiro CSV especificado.
 	 *
-	 * @param fileName Nome do ficheiro CSV.
-	 * @param filePath Local do ficheiro CSV.
 	 * @throws IOException Exceção lançada se ocorrer um erro de E/S durante a
 	 *                     leitura do ficheiro.
 	 */
@@ -78,8 +77,7 @@ public class Schedule implements ColumnGetter {
 	/**
 	 * Constrói um Schedule a partir de um ficheiro TXTFile (.txt)
 	 *
-	 * @param f Um objeto TXTFile.
-	 * @return Uma instância de Schedule criada a partir do TXTFile fornecido.
+	 * @param t Um objeto TXTFile.
 	 */
 	public Schedule(TXTFile t) {
 		f = t.getFile();
@@ -96,7 +94,7 @@ public class Schedule implements ColumnGetter {
 		for (CSVRecord csvRecord : csvParser) {
 			String columns = "";
 			columns = csvRecord.get(0);
-			columns = columns.replace(";", " | "); 
+			columns = columns.replace(";", " | ");
 			scheduleText.add(columns);
 			for (int i = 0; i < 10; i++) {
 				if (i > 0 && i < csvRecord.size() && !csvRecord.get(i).isBlank()) {
@@ -126,10 +124,9 @@ public class Schedule implements ColumnGetter {
 	public String[] getColumn() {
 		return null;
 	}
-	 
 
-	    public void addScheduleLine(String line) {
-	        scheduleText.add(line);
-	    }
+	public void addScheduleLine(String line) {
+		scheduleText.add(line);
+	}
 
 }

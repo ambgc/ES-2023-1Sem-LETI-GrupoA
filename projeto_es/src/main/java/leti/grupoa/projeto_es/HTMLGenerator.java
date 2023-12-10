@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * A classe {@code HTMLGenerator} gera um ficheiro HTML a partir de dados de um
- * objeto {@link Schedule}. Os títulos modificados podem ser especificados para
+ * objeto {@link Schedule}. Os titulos modificados podem ser especificados para
  * alterar a ordem das colunas no HTML gerado.
  */
 public class HTMLGenerator {
@@ -15,10 +15,10 @@ public class HTMLGenerator {
 
 	/**
 	 * Construtor da classe que recebe um objeto {@link Schedule} e uma lista de
-	 * títulos modificados.
+	 * titulos modificados.
 	 *
 	 * @param s              O objeto Schedule com os dados.
-	 * @param modifiedTitles A lista de títulos modificados.
+	 * @param modifiedTitles A lista de titulos modificados.
 	 */
 	public HTMLGenerator(Schedule s, ArrayList<String> modifiedTitles) {
 		this.modifiedTitles = modifiedTitles;
@@ -36,20 +36,20 @@ public class HTMLGenerator {
 	}
 
 	/**
-	 * Obtém a lista de títulos modificados.
+	 * obtem a lista de titulos modificados.
 	 *
-	 * @return A lista de títulos modificados.
+	 * @return A lista de titulos modificados.
 	 */
 	public ArrayList<String> getModifiedTitles() {
 		return modifiedTitles;
 	}
 
 	/**
-	 * Obtém as posições das colunas modificadas.
+	 * obtem as posicoes das colunas modificadas.
 	 *
-	 * @return Uma lista de strings que contém as posições das colunas modificadas.
+	 * @return Uma lista de strings que contém as posicoes das colunas modificadas.
 	 */
-	public ArrayList<String> modTiltesPosition() {
+	public ArrayList<String> modTitlesPosition() {
 		ArrayList<String> modTitlesPosition = new ArrayList<>();
 		for (String modTitle : modifiedTitles) {
 			int index = getColumnIndex(modTitle);
@@ -79,20 +79,20 @@ public class HTMLGenerator {
 	}
 
 	/**
-	 * Carrega os dados de um Schedule para uma representação em HTML.
+	 * Carrega os dados de um Schedule para uma representacao em HTML.
 	 *
-	 * @return Uma string que representa o conteúdo HTML gerado.
+	 * @return Uma string que representa o conteudo HTML gerado.
 	 */
 	private String loadHTML() {
 		String[] headerColumns = s.getColumn(s.getScheduleText().get(0));
 		if (getModifiedTitles() != null) {
-			ArrayList<String> modTitlesPositions = modTiltesPosition();
+			ArrayList<String> modTitlesPositions = modTitlesPosition();
 		}
 		StringBuilder htmlContent = new StringBuilder();
 		htmlContent.append(HTML_HEADER);
 		htmlContent.append(VAR_TABLE);
 		if (getModifiedTitles() != null) {
-			ArrayList<String> modTitlesPositions = modTiltesPosition();
+			ArrayList<String> modTitlesPositions = modTitlesPosition();
 			for (String position : modTitlesPositions) {
 				int index = Integer.parseInt(position);
 				htmlContent.append("					{title:'").append(headerColumns[index])
@@ -124,12 +124,12 @@ public class HTMLGenerator {
 		System.out.println("HTML criado no ficheiro " + filePath);
 	}
 
-// Constantes HTML
+	// Constantes HTML
 	private static final String HTML_HEADER = "<html lang='en' xmlns='http://www.w3.org/1999/xhtml'>\n" + "	<head>\n"
 			+ "		<meta charset='utf-8' />\n"
 			+ "		<link href='https://unpkg.com/tabulator-tables@4.8.4/dist/css/tabulator.min.css' rel='stylesheet'>\n"
 			+ "		<script type='text/javascript' src='https://unpkg.com/tabulator-tables@4.8.4/dist/js/tabulator.min.js'></script>\n"
-			+ "	</head>\n" + "	<body>\n" + "		<H1>Horários</H1>	\n" + "		<div id='example-table'></div>\n"
+			+ "	</head>\n" + "	<body>\n" + "		<H1>Horarios</H1>	\n" + "		<div id='example-table'></div>\n"
 			+ "\n" + "		<script type='text/javascript'>\n" + "\n" + "			var tabledata = [ \n";
 	private static final String VAR_TABLE = "];\n" + "			var table = new Tabulator('#example-table', {\n"
 			+ "				data:tabledata,\n" + "				layout:'fitDatafill',\n"
